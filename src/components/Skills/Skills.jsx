@@ -78,6 +78,33 @@ export default function Skills() {
           What I work <span className="text-accent">with.</span>
         </motion.h2>
 
+        {/* tech stack marquee similar to reference */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ delay: 0.2 }}
+          className="relative overflow-hidden py-8 mb-16"
+        >
+          <div className="animate-marquee whitespace-nowrap flex gap-8">
+            {skills.map(s => (
+              <span
+                key={s.name}
+                className="text-lg font-bold uppercase whitespace-nowrap"
+              >
+                {s.name}
+              </span>
+            ))}
+            {skills.map(s => (
+              <span
+                key={s.name + '-dup'}
+                className="text-lg font-bold uppercase whitespace-nowrap"
+              >
+                {s.name}
+              </span>
+            ))}
+          </div>
+        </motion.div>
+
         <div className="grid sm:grid-cols-3 lg:grid-cols-4 gap-6">
           {skills.map(skill => (
             <SkillItem key={skill.name} {...skill} />
