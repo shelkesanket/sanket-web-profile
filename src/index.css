@@ -2,6 +2,16 @@
 @tailwind components;
 @tailwind utilities;
 
+/* rotating circle animation for skills */
+@keyframes spin-clockwise {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.spin-slow {
+  animation: spin-clockwise 60s linear infinite;
+}
+
 @layer base {
   :root {
     --bg: #F5F4EF;

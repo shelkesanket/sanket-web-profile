@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useInView } from '../../hooks/useInView'
 import { projects } from '../../data/content'
@@ -81,6 +81,16 @@ function ProjectCard({ project, index, inView }) {
 
 export default function Projects() {
   const [ref, inView] = useInView()
+  const [repos, setRepos] = useState([])
+
+  useEffect(() => {
+    fetch('https://api.github.com/users/shelkesanket/repos?per_page=6')
+      .then(res => res.json())
+      .then(data => {
+        if (Array.isArray(data)) setRepos(data)
+      })
+      .catch(() => {})
+  }, [])
 
   return (
     <section id="projects" className="py-28 px-6">
@@ -105,7 +115,7 @@ export default function Projects() {
             initial={{ opacity: 0 }}
             animate={inView ? { opacity: 1 } : {}}
             transition={{ delay: 0.3 }}
-            href="https://github.com/shelkesanket"
+            href="https://github.com/shelkesanket?tab=repositories"
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-center gap-1.5 text-sm text-[var(--text-muted)] hover:text-accent transition-colors font-mono"
@@ -119,6 +129,31 @@ export default function Projects() {
             <ProjectCard key={project.title} project={project} index={i} inView={inView} />
           ))}
         </div>
+
+        {/* GitHub repos fetched live */}
+        {repos.length > 0 && (
+          <div className="mt-10">
+            <h3 className="font-display font-600 text-2xl mb-4">GitHub Repositories</h3>
+            <div className="grid sm:grid-cols-2 gap-6">
+              {repos.slice(0, 4).map(repo => (
+                <a
+                  key={repo.id}
+                  href={repo.html_url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group bg-[var(--bg-card)] border border-[var(--border)] rounded-2xl p-6 hover:border-accent transition"
+                >
+                  <h4 className="font-display font-700 text-lg group-hover:text-[var(--text)]">
+                    {repo.name}
+                  </h4>
+                  <p className="text-sm text-[var(--text-muted)] mt-2">
+                    {repo.description}
+                  </p>
+                </a>
+              ))}
+            </div>
+          </div>
+        )}
       </div>
     </section>
   )

@@ -1,6 +1,25 @@
 import { useEffect, useRef, useState } from 'react'
 import { motion } from 'framer-motion'
 import { FiGithub, FiLinkedin, FiArrowDownRight } from 'react-icons/fi'
+import { skills } from '../../data/content'
+import {
+  FaReact, FaNodeJs, FaGitAlt, FaHtml5, FaCss3Alt
+} from 'react-icons/fa'
+import {
+  SiTypescript, SiJavascript, SiRedux, SiJest, SiJenkins, SiVite
+} from 'react-icons/si'
+
+const iconMap = {
+  React: <FaReact />,
+  TypeScript: <SiTypescript />,
+  JavaScript: <SiJavascript />,
+  'Redux / RTK': <SiRedux />,
+  'Node.js': <FaNodeJs />,
+  'Git / GitLab': <FaGitAlt />,
+  'HTML / CSS': <FaHtml5 />,
+  'Testing Library': <SiJest />,
+  'Jenkins / CI-CD': <SiJenkins />,
+}
 
 const ROLES = ['Frontend Developer', 'React Specialist', 'UI Architect', 'Accessibility Advocate']
 
@@ -46,6 +65,52 @@ const item = {
 }
 
 export default function Hero() {
+  const tools = [
+    'Single-SPA', 'Stryker', 'PWA', 'Service Worker', 'Storybook',
+    'SonarQube', 'Veracode', 'Grafana', 'Insomnia', 'Figma', 'Vite', 'GitLab CI',
+  ]
+
+  const masterItems = [...skills.map(s => s.name), ...tools]
+  const [circleItems, setCircleItems] = useState([])
+
+  useEffect(() => {
+    function pickInitial() {
+      const pool = [...masterItems]
+      const count = 7 + Math.floor(Math.random() * 3) // 7-9
+      const selected = []
+      for (let i = 0; i < count && pool.length; i++) {
+        const idx = Math.floor(Math.random() * pool.length)
+        selected.push(pool.splice(idx, 1)[0])
+      }
+      setCircleItems(selected)
+    }
+
+    pickInitial()
+    const id = setInterval(() => {
+      setCircleItems(prev => {
+        let nxt = [...prev]
+        // decide add or remove
+        const doAdd = nxt.length < 9 && Math.random() < 0.6
+        if (doAdd) {
+          const available = masterItems.filter(i => !nxt.includes(i))
+          if (available.length > 0) {
+            const choice = available[Math.floor(Math.random() * available.length)]
+            nxt.push(choice)
+          }
+        } else {
+          if (nxt.length > 7) {
+            nxt.splice(Math.floor(Math.random() * nxt.length), 1)
+          }
+        }
+        // shuffle order
+        nxt.sort(() => Math.random() - 0.5)
+        return nxt
+      })
+    }, 3000)
+
+    return () => clearInterval(id)
+  }, [masterItems])
+
   return (
     <section
       id="home"
@@ -59,18 +124,6 @@ export default function Hero() {
           backgroundSize: '64px 64px',
         }}
       />
-
-      {/* Large BG text */}
-      <div className="absolute right-0 top-1/2 -translate-y-1/2 pointer-events-none select-none overflow-hidden">
-        <motion.p
-          initial={{ opacity: 0, x: 100 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1], delay: 0.8 }}
-          className="font-display font-800 text-[18vw] leading-none text-[var(--text)] opacity-[0.025] whitespace-nowrap"
-        >
-          REACT
-        </motion.p>
-      </div>
 
       <div className="max-w-6xl mx-auto px-6 w-full py-20">
         <motion.div
@@ -159,46 +212,30 @@ export default function Hero() {
             </motion.div>
           </div>
 
-          {/* Right — Stats card */}
+          {/* Right — Rotating skills circle */}
           <motion.div
             variants={item}
             className="hidden lg:block"
           >
             <div className="relative">
-              {/* Decorative ring */}
-              <div className="absolute -inset-4 border border-accent/10 rounded-3xl" />
-              <div className="absolute -inset-8 border border-accent/5 rounded-3xl" />
-
-              <div className="relative bg-[var(--bg-card)] border border-[var(--border)] rounded-2xl p-8">
-                <div className="font-mono text-xs text-[var(--text-muted)] mb-6">profile.json</div>
-
-                <div className="space-y-5">
-                  {[
-                    { label: 'experience', value: '6+ years' },
-                    { label: 'specialty', value: 'React / TypeScript' },
-                    { label: 'architecture', value: 'Micro Frontends' },
-                    { label: 'focus', value: 'Performance & A11y' },
-                    { label: 'location', value: 'Pune, India 🇮🇳' },
-                  ].map(({ label, value }) => (
-                    <div key={label} className="flex items-center justify-between">
-                      <span className="font-mono text-sm text-accent">"{label}":</span>
-                      <span className="font-mono text-sm text-[var(--text)] ml-2">"{value}"</span>
+              <div className="relative w-64 h-64 mx-auto spin-slow">
+                {circleItems.map((name, idx) => {
+                  const angle = (360 / circleItems.length) * idx
+                  return (
+                    <div
+                      key={name + idx}
+                      className="absolute top-1/2 left-1/2 flex flex-col items-center text-accent"
+                      style={{
+                        transform: `rotate(${angle}deg) translate(8rem) rotate(-${angle}deg)`,
+                      }}
+                    >
+                      <span className="text-2xl">{iconMap[name] || name.charAt(0)}</span>
+                      <span className="text-xs mt-1 font-mono whitespace-nowrap">
+                        {name}
+                      </span>
                     </div>
-                  ))}
-                </div>
-
-                <div className="mt-8 pt-6 border-t border-[var(--border)] grid grid-cols-3 gap-4 text-center">
-                  {[
-                    { num: '6+', label: 'Years' },
-                    { num: '85%', label: 'Test Coverage' },
-                    { num: '30%', label: 'Dev Efficiency ↑' },
-                  ].map(({ num, label }) => (
-                    <div key={label}>
-                      <div className="font-display font-700 text-2xl text-[var(--text)]">{num}</div>
-                      <div className="text-xs text-[var(--text-muted)] mt-0.5">{label}</div>
-                    </div>
-                  ))}
-                </div>
+                  )
+                })}
               </div>
             </div>
           </motion.div>
