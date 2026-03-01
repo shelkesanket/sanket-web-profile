@@ -9,6 +9,7 @@
 }
 
 .spin-slow {
+  /* slower, smoother rotation */
   animation: spin-clockwise 60s linear infinite;
 }
 
