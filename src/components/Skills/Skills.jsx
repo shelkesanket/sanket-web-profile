@@ -62,13 +62,6 @@ export default function Skills() {
   return (
     <section id="skills" className="py-28 px-6">
       <div className="max-w-6xl mx-auto" ref={ref}>
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          className="font-mono text-xs text-accent mb-3"
-        >
-          02 / skills
-        </motion.p>
         <motion.h2
           initial={{ opacity: 0, y: 30 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
@@ -77,7 +70,6 @@ export default function Skills() {
         >
           What I work <span className="text-accent">with.</span>
         </motion.h2>
-
         {/* tech stack marquee similar to reference */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -86,7 +78,7 @@ export default function Skills() {
           className="relative overflow-hidden py-8 mb-16"
         >
           <div className="animate-marquee whitespace-nowrap flex gap-8">
-            {skills.map(s => (
+            {skills.map((s) => (
               <span
                 key={s.name}
                 className="text-lg font-bold uppercase whitespace-nowrap"
@@ -94,9 +86,9 @@ export default function Skills() {
                 {s.name}
               </span>
             ))}
-            {skills.map(s => (
+            {skills.map((s) => (
               <span
-                key={s.name + '-dup'}
+                key={s.name + "-dup"}
                 className="text-lg font-bold uppercase whitespace-nowrap"
               >
                 {s.name}
@@ -104,13 +96,11 @@ export default function Skills() {
             ))}
           </div>
         </motion.div>
-
         <div className="grid sm:grid-cols-3 lg:grid-cols-4 gap-6">
-          {skills.map(skill => (
+          {skills.map((skill) => (
             <SkillItem key={skill.name} {...skill} />
           ))}
         </div>
-
         {/* Tech tools grid */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -118,12 +108,30 @@ export default function Skills() {
           transition={{ delay: 0.8 }}
           className="mt-16 pt-10 border-t border-[var(--border)]"
         >
-          <p className="text-sm text-[var(--text-muted)] font-mono mb-5">// tools & ecosystem</p>
+          <motion.h2
+            initial={{ opacity: 0, y: 30 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{ delay: 0.1 }}
+            className="font-display font-800 text-4xl sm:text-5xl tracking-tight mb-14"
+          >
+            Tools & <span className="text-accent">ecosystem</span>
+          </motion.h2>
+
           <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-4">
             {[
-              'Single-SPA', 'Stryker', 'PWA', 'Service Worker', 'Storybook',
-              'SonarQube', 'Veracode', 'Grafana', 'Insomnia', 'Figma', 'Vite', 'GitLab CI',
-            ].map(tool => (
+              "Single-SPA",
+              "Stryker",
+              "PWA",
+              "Service Worker",
+              "Storybook",
+              "SonarQube",
+              "Veracode",
+              "Grafana",
+              "Insomnia",
+              "Figma",
+              "Vite",
+              "GitLab CI",
+            ].map((tool) => (
               <div
                 key={tool}
                 className="group flex flex-col items-center justify-center p-3 bg-[var(--bg-card)] border border-[var(--border)] rounded-lg hover:border-accent/50 hover:bg-[var(--bg-card)] transition-colors cursor-pointer"
@@ -133,7 +141,8 @@ export default function Skills() {
               </div>
             ))}
           </div>
-        </motion.div>      </div>
+        </motion.div>{" "}
+      </div>
     </section>
-  )
+  );
 }

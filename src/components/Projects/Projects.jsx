@@ -126,16 +126,23 @@ export default function Projects() {
 
         <div className="grid sm:grid-cols-2 gap-6">
           {projects.map((project, i) => (
-            <ProjectCard key={project.title} project={project} index={i} inView={inView} />
+            <ProjectCard
+              key={project.title}
+              project={project}
+              index={i}
+              inView={inView}
+            />
           ))}
         </div>
 
         {/* GitHub repos fetched live */}
         {repos.length > 0 && (
           <div className="mt-10">
-            <h3 className="font-display font-600 text-2xl mb-4">GitHub Repositories</h3>
+            <h3 className="font-display font-600 text-2xl mb-4">
+              GitHub Repositories
+            </h3>
             <div className="grid sm:grid-cols-2 gap-6">
-              {repos.slice(0, 4).map(repo => (
+              {repos.slice(0, 6).map((repo) => (
                 <a
                   key={repo.id}
                   href={repo.html_url}
@@ -156,5 +163,5 @@ export default function Projects() {
         )}
       </div>
     </section>
-  )
+  );
 }

@@ -95,13 +95,6 @@ export default function Experience() {
   return (
     <section id="experience" className="py-28 px-6">
       <div className="max-w-6xl mx-auto" ref={ref}>
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          className="font-mono text-xs text-accent mb-3"
-        >
-          03 / experience
-        </motion.p>
         <motion.h2
           initial={{ opacity: 0, y: 30 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
@@ -122,11 +115,16 @@ export default function Experience() {
 
           <div className="pl-10 space-y-6">
             {experiences.map((exp, i) => (
-              <ExperienceCard key={exp.company} exp={exp} index={i} inView={inView} />
+              <ExperienceCard
+                key={exp.company}
+                exp={exp}
+                index={i}
+                inView={inView}
+              />
             ))}
           </div>
         </div>
       </div>
     </section>
-  )
+  );
 }

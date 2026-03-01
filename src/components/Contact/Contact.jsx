@@ -16,13 +16,6 @@ export default function Contact() {
   return (
     <section id="contact" className="py-28 px-6">
       <div className="max-w-6xl mx-auto" ref={ref}>
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          className="font-mono text-xs text-accent mb-3"
-        >
-          05 / contact
-        </motion.p>
         <motion.h2
           initial={{ opacity: 0, y: 30 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
@@ -37,7 +30,8 @@ export default function Contact() {
           transition={{ delay: 0.2 }}
           className="text-[var(--text-muted)] text-lg mb-14 max-w-lg"
         >
-          Open to new opportunities, collaborations, or just a technical conversation about frontend architecture.
+          Open to new opportunities, collaborations, or just a technical
+          conversation about frontend architecture.
         </motion.p>
 
         <div className="grid lg:grid-cols-2 gap-8">
@@ -49,8 +43,12 @@ export default function Contact() {
             className="bg-[var(--bg-card)] border border-[var(--border)] rounded-2xl p-8 flex flex-col gap-6"
           >
             <div>
-              <p className="font-mono text-xs text-[var(--text-muted)] mb-2">email</p>
-              <p className="font-display font-700 text-xl break-all">shelkesanket.b@gmail.com</p>
+              <p className="font-mono text-xs text-[var(--text-muted)] mb-2">
+                email
+              </p>
+              <p className="font-display font-700 text-xl break-all">
+                shelkesanket.b@gmail.com
+              </p>
             </div>
 
             <div className="flex flex-col sm:flex-row gap-3">
@@ -65,7 +63,7 @@ export default function Contact() {
                 onClick={copyEmail}
                 className="flex-1 flex items-center justify-center gap-2 py-3.5 border border-[var(--border)] text-[var(--text)] font-display font-600 rounded-full hover:border-accent/50 transition-colors"
               >
-                {copied ? '✓ Copied!' : 'Copy Email'}
+                {copied ? "✓ Copied!" : "Copy Email"}
               </button>
             </div>
 
@@ -87,17 +85,17 @@ export default function Contact() {
             {[
               {
                 icon: <FiGithub size={20} />,
-                label: 'GitHub',
-                handle: '@shelkesanket',
-                href: 'https://github.com/shelkesanket',
-                desc: 'Code, projects, contributions',
+                label: "GitHub",
+                handle: "@shelkesanket",
+                href: "https://github.com/shelkesanket",
+                desc: "Code, projects, contributions",
               },
               {
                 icon: <FiLinkedin size={20} />,
-                label: 'LinkedIn',
-                handle: 'in/shelkesanket',
-                href: 'https://linkedin.com/in/shelkesanket',
-                desc: 'Professional profile & experience',
+                label: "LinkedIn",
+                handle: "in/shelkesanket",
+                href: "https://linkedin.com/in/shelkesanket",
+                desc: "Professional profile & experience",
               },
             ].map(({ icon, label, handle, href, desc }) => (
               <a
@@ -117,8 +115,13 @@ export default function Contact() {
                   </div>
                 </div>
                 <div className="flex items-center gap-2 text-sm text-[var(--text-muted)]">
-                  <span className="font-mono text-xs hidden sm:block">{handle}</span>
-                  <FiArrowUpRight size={14} className="group-hover:text-accent group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all" />
+                  <span className="font-mono text-xs hidden sm:block">
+                    {handle}
+                  </span>
+                  <FiArrowUpRight
+                    size={14}
+                    className="group-hover:text-accent group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all"
+                  />
                 </div>
               </a>
             ))}
@@ -126,15 +129,18 @@ export default function Contact() {
             <div className="bg-[var(--bg-card)] border border-[var(--border)] rounded-xl p-5">
               <div className="flex items-center gap-2 mb-3">
                 <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse" />
-                <span className="text-sm font-display font-600">Currently Available</span>
+                <span className="text-sm font-display font-600">
+                  Currently Available
+                </span>
               </div>
               <p className="text-sm text-[var(--text-muted)]">
-                Open to senior frontend roles, consulting engagements, and exciting architectural challenges.
+                Open to senior frontend roles, consulting engagements, and
+                exciting architectural challenges.
               </p>
             </div>
           </motion.div>
         </div>
       </div>
     </section>
-  )
+  );
 }
